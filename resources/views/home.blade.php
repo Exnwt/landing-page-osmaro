@@ -1,7 +1,5 @@
 
-@section('title', 'Osmaro')
 
-@section('content')
     <!-- Heading Section -->
     <section class="heading_section">
         <div class="overlay"></div>
@@ -125,16 +123,6 @@
                 <p>Alat dan Mesin Penunjang Medis:</p>
             </div>
             <div class="fasilitas_slider">
-                @foreach(\App\Models\FasilitasMedis::all() as $fasilitas)
-                    <div class="box">
-                        <div class="img-box">
-                            <img src="{{ asset('storage/' . $fasilitas->gambar) }}" alt="{{ $fasilitas->nama }}">
-                        </div>
-                        <div class="detail-box">
-                            <h5>{{ $fasilitas->nama }}</h5>
-                        </div>
-                    </div>
-                @endforeach
             </div>
             <div class="fasilitas_nav">
                 <button onclick="scrollSlider(-1)"></button>
@@ -222,48 +210,3 @@
         </div>
     </section>
     <div class="separator"></div>
-@endsection
-
-@section('scripts')
-    <script>
-        function myMap() {
-    var mapProp = {
-        center: new google.maps.LatLng(40.712775, -74.005973),
-        zoom: 18,
-    };
-    var map = new google.maps.Map(document.getElementById("googleMap"), mapProp);
-}
-const links = document.querySelectorAll('a[href^="#"]');
-    function scrollSlider(direction) {
-        const slider = document.querySelector(".fasilitas_slider");
-        const scrollAmount = 320;
-        slider.scrollBy({ left: direction * scrollAmount, behavior: "smooth" });
-    }
-
-    var swiper = new Swiper(".mySwiper", {
-    slidesPerView: 5,
-    spaceBetween: 15,
-    loop: true,
-    autoplay: {
-        delay: 2000,
-        disableOnInteraction: false
-    },
-    pagination: false,
-    freeMode: true,
-    grabCursor: true,
-    breakpoints: {
-        1024: { slidesPerView: 5 },
-        768: { slidesPerView: 3 },
-        480: { slidesPerView: 2 },
-        320: { slidesPerView: 1 }
-    }
-});
-document.addEventListener("scroll", function () {
-    let scrollPosition = window.scrollY;
-    let headingSection = document.querySelector(".heading_section");
-    headingSection.style.backgroundPositionY = `${scrollPosition * 0.5}px`;
-});
-
-
-</script>
-@endsection
