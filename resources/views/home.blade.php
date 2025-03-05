@@ -1,4 +1,3 @@
-
     <!-- Heading Section -->
     <section class="heading_section">
         <div class="overlay"></div>
@@ -30,10 +29,10 @@
             <div class="row">
                 <div class="col-lg-6">
                     <div class="image-grid">
-                        <div class="image-box"><img alt="Medical Check Up"></div>
-                        <div class="image-box"><img alt="Drug Test"></div>
-                        <div class="image-box"><img alt="Elderly Check Up"></div>
-                        <div class="image-box"><img alt="Lab Testing"></div>
+                        <div class="image-box"><img src="{{ asset('frontend/images/layanan1.png') }}" alt="Medical Check Up"></div>
+                        <div class="image-box"><img src="{{ asset('frontend/images/layanan2.jpg') }}" alt="Drug Test"></div>
+                        <div class="image-box"><img src="{{ asset('frontend/images/layanan3.jpg') }}" alt="Elderly Check Up"></div>
+                        <div class="image-box"><img src="{{ asset('frontend/images/layanan4.png') }}" alt="Lab Testing"></div>
                     </div>
                 </div>
                 <div class="col-lg-6">
@@ -121,6 +120,18 @@
                 <h2 id="fasilitas">Fasilitas Medis</h2>
                 <p>Alat dan Mesin Penunjang Medis:</p>
             </div>
+            <div class="fasilitas_slider">
+                @foreach(\App\Models\FasilitasMedis::all() as $fasilitas)
+                    <div class="box">
+                        <div class="img-box">
+                            <img src="{{ asset('storage/' . $fasilitas->gambar) }}" alt="{{ $fasilitas->nama }}">
+                        </div>
+                        <div class="detail-box">
+                            <h5>{{ $fasilitas->nama }}</h5>
+                        </div>
+                    </div>
+                @endforeach
+            </div>
             <div class="fasilitas_nav">
                 <button onclick="scrollSlider(-1)"></button>
                 <button onclick="scrollSlider(1)"></button>
@@ -135,7 +146,13 @@
                 <h2 class="text-center">MITRA KAMI</h2>
             </div>
             <div class="swiper mySwiper">
-
+                <div class="swiper-wrapper">
+                    @foreach (\App\Models\Mitra::all() as $mitra)
+                        <div class="swiper-slide">
+                            <img src="{{ asset('storage/' . $mitra->image) }}" alt="{{ $mitra->name }}">
+                        </div>
+                    @endforeach
+                </div>
                 <div class="swiper-pagination"></div>
             </div>
 
@@ -156,6 +173,7 @@
                         <div class="heading_container">
                             <h2 id="lokasi">Lokasi</h2>
                         </div>
+                        <p>{{$lokasi}}</p>
                         <img src="{{ asset('frontend/images/qr.png')}}" alt="QR Code" class="qr-image">
                     </div>
                 </div>
@@ -176,7 +194,23 @@
                 <h4 id="info">Info Terkini</h4>
             </div>
             <div class="row">
-
+                @foreach ($post->take(3) as $item)
+                <div class="col-md-4 col-12 mb-4">
+                    <div class="box">
+                        <div class="img-box">
+                            <img src="{{ Storage::url($item->thumbnail) }}" alt="{{ $item->title }}">
+                        </div>
+                        <div class="detail-box">
+                            <h6>{{ $item->category->name }}</h6>
+                            <a href="{{ route('posts.show', $item->slug) }}" class="custom-link">
+                                <h5>{{ Str::limit($item->title, 30) }}</h5>
+                            </a>
+                            <p>{{ strip_tags(Str::limit($item->body, 100)) }}</p>
+                            <a href="{{ route('posts.show', $item->slug) }}" class="read-more">Baca selengkapnya</a>
+                        </div>
+                    </div>
+                </div>
+                @endforeach
             </div>
             <div class="lihat-semua">
                 <a href="{{ route('post') }}" class="lihat-semua-link">Lihat Semua...</a>
@@ -184,3 +218,47 @@
         </div>
     </section>
     <div class="separator"></div>
+
+@section('scripts')
+    <script>
+        function myMap() {
+    var mapProp = {
+        center: new google.maps.LatLng(40.712775, -74.005973),
+        zoom: 18,
+    };
+    var map = new google.maps.Map(document.getElementById("googleMap"), mapProp);
+}
+const links = document.querySelectorAll('a[href^="#"]');
+    function scrollSlider(direction) {
+        const slider = document.querySelector(".fasilitas_slider");
+        const scrollAmount = 320;
+        slider.scrollBy({ left: direction * scrollAmount, behavior: "smooth" });
+    }
+
+    var swiper = new Swiper(".mySwiper", {
+    slidesPerView: 5,
+    spaceBetween: 15,
+    loop: true,
+    autoplay: {
+        delay: 2000,
+        disableOnInteraction: false
+    },
+    pagination: false,
+    freeMode: true,
+    grabCursor: true,
+    breakpoints: {
+        1024: { slidesPerView: 5 },
+        768: { slidesPerView: 3 },
+        480: { slidesPerView: 2 },
+        320: { slidesPerView: 1 }
+    }
+});
+document.addEventListener("scroll", function () {
+    let scrollPosition = window.scrollY;
+    let headingSection = document.querySelector(".heading_section");
+    headingSection.style.backgroundPositionY = `${scrollPosition * 0.5}px`;
+});
+
+
+</script>
+@endsection
