@@ -1,7 +1,4 @@
 
-@section('title', 'Osmaro')
-
-@section('content')
     <!-- Heading Section -->
     <section class="heading_section">
         <div class="overlay"></div>
@@ -159,7 +156,6 @@
                         <div class="heading_container">
                             <h2 id="lokasi">Lokasi</h2>
                         </div>
-                        <p>{{$lokasi}}</p>
                         <img src="{{ asset('frontend/images/qr.png')}}" alt="QR Code" class="qr-image">
                     </div>
                 </div>
@@ -188,4 +184,3 @@
         </div>
     </section>
     <div class="separator"></div>
-@endsection
