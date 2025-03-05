@@ -18,6 +18,9 @@ use Illuminate\Support\Facades\Route;
 */
 
 
+Route::get('/', function () {
+    return view('welcome');
+});
 
 // Route::get('/', function () {
 //     $site_name = get_pengaturan_value('_site_name');
