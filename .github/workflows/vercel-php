@@ -1,0 +1,4 @@
+npm install -g vercel@latest
+vercel logout
+vercel login
+vercel
