@@ -18,20 +18,17 @@ use Illuminate\Support\Facades\Route;
 */
 
 
+
 Route::get('/', function () {
-    return view('home');
+    $site_name = "puki";
+    $lokasi = "meki"
+    $instagram = "aaa"
+    $facebook = "sss"
+    $linkedin = "dddd"
+    $post = "qwwww";
+
+    return view('home', compact('site_name', 'lokasi', 'instagram', 'facebook', 'linkedin', 'post'));
 });
-
-// Route::get('/', function () {
-//     $site_name = get_pengaturan_value('_site_name');
-//     $lokasi = get_pengaturan_value('_location');
-//     $instagram = get_pengaturan_value('_instagram');
-//     $facebook = get_pengaturan_value('_facebook');
-//     $linkedin = get_pengaturan_value('_linkedin');
-//     $post = get_post();
-
-//     return view('home', compact('site_name', 'lokasi', 'instagram', 'facebook', 'linkedin', 'post'));
-// });
 
 Route::get('/posts/{slug}', [TestController::class, 'show'])->name('posts.show');
 
