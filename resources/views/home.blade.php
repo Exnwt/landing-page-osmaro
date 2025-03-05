@@ -124,18 +124,6 @@
                 <h2 id="fasilitas">Fasilitas Medis</h2>
                 <p>Alat dan Mesin Penunjang Medis:</p>
             </div>
-            <div class="fasilitas_slider">
-                @foreach(\App\Models\FasilitasMedis::all() as $fasilitas)
-                    <div class="box">
-                        <div class="img-box">
-                            <img src="{{ asset('storage/' . $fasilitas->gambar) }}" alt="{{ $fasilitas->nama }}">
-                        </div>
-                        <div class="detail-box">
-                            <h5>{{ $fasilitas->nama }}</h5>
-                        </div>
-                    </div>
-                @endforeach
-            </div>
             <div class="fasilitas_nav">
                 <button onclick="scrollSlider(-1)"></button>
                 <button onclick="scrollSlider(1)"></button>
@@ -150,13 +138,7 @@
                 <h2 class="text-center">MITRA KAMI</h2>
             </div>
             <div class="swiper mySwiper">
-                <div class="swiper-wrapper">
-                    @foreach (\App\Models\Mitra::all() as $mitra)
-                        <div class="swiper-slide">
-                            <img src="{{ asset('storage/' . $mitra->image) }}" alt="{{ $mitra->name }}">
-                        </div>
-                    @endforeach
-                </div>
+
                 <div class="swiper-pagination"></div>
             </div>
 
@@ -198,23 +180,7 @@
                 <h4 id="info">Info Terkini</h4>
             </div>
             <div class="row">
-                @foreach ($post->take(3) as $item)
-                <div class="col-md-4 col-12 mb-4">
-                    <div class="box">
-                        <div class="img-box">
-                            <img src="{{ Storage::url($item->thumbnail) }}" alt="{{ $item->title }}">
-                        </div>
-                        <div class="detail-box">
-                            <h6>{{ $item->category->name }}</h6>
-                            <a href="{{ route('posts.show', $item->slug) }}" class="custom-link">
-                                <h5>{{ Str::limit($item->title, 30) }}</h5>
-                            </a>
-                            <p>{{ strip_tags(Str::limit($item->body, 100)) }}</p>
-                            <a href="{{ route('posts.show', $item->slug) }}" class="read-more">Baca selengkapnya</a>
-                        </div>
-                    </div>
-                </div>
-                @endforeach
+
             </div>
             <div class="lihat-semua">
                 <a href="{{ route('post') }}" class="lihat-semua-link">Lihat Semua...</a>
